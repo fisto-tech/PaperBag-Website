@@ -1,0 +1,30 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #FFFCF4;
+}
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 9999;
+}
+
+.scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.scroll-container {
+    height: 600vh; /* Adjust height based on the scroll duration of the model */
+}
