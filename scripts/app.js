@@ -1,4 +1,8 @@
 //3D ======================================================================
+if (history.scrollRestoration) {
+  history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
 
 let container;
 let camera;
@@ -89,54 +93,41 @@ function init() {
       },
     });
 
+    // Pin Section 2 so it stays for a full scroll while the bag is centered
+    ScrollTrigger.create({
+      trigger: "#about",
+      start: "top top",
+      end: "+=100%",
+      pin: true,
+      pinSpacing: true,
+    });
+
     // Section 3 (Scale down to fit circle as it enters)
     gsap.to(object.scale, {
-      x: 0.55,
-      y: 0.55,
-      z: 0.55,
+      x: 0.7,
+      y: 0.7,
+      z: 0.7,
       ease: "power1.inOut",
       scrollTrigger: {
         trigger: ".ellipse-bg-container",
         start: "top bottom",
         end: "center center",
-        scrub: 1,
+        scrub: true,
       },
     });
 
-    // Move up with Section 3 to stay fixed on the circle
-    gsap.to(object.position, {
-      y: () => {
-        const sec3 = document.querySelector('#section3');
-        const circle = document.querySelector('.ellipse-bg-container') || sec3;
-        const sec3Rect = sec3.getBoundingClientRect();
-        const circleRect = circle.getBoundingClientRect();
-        const circleCenter = (circleRect.top - sec3Rect.top) + (circleRect.height / 2);
-        const sec3Bottom = sec3Rect.height;
-        const dist = sec3Bottom - circleCenter + (window.innerHeight / 2);
-        return 0 + (dist * (94.6 / window.innerHeight)); 
-      },
-      ease: "none",
+    // Crossfade to static image when centered
+    gsap.timeline({
       scrollTrigger: {
         trigger: ".ellipse-bg-container",
         start: "center center",
-        endTrigger: "#section3",
-        end: "bottom top",
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    });
+        toggleActions: "play none none reverse"
+      }
+    })
+      .to(object.material, { opacity: 0, duration: 0.1 }, 0)
+      .to(".static-bag", { opacity: 1, duration: 0.1 }, 0);
 
-    // Section 3 to Section 4 (Fade out image)
-    gsap.to(object.material, {
-      opacity: 0,
-      ease: "power1.inOut",
-      scrollTrigger: {
-        trigger: "#section3",
-        start: "bottom center",
-        end: "bottom top",
-        scrub: 1,
-      },
-    });
+
 
     // Section 8 Text Animations
     gsap.from("#carry-text", {
@@ -297,37 +288,7 @@ function initCarousel() {
     });
   });
 
-  // E. Scroll-Triggered Fan Out
-  ScrollTrigger.create({
-    trigger: ".cards-section",
-    start: "center center",
-    end: "bottom top",
-    scrub: 0.8,
-    onUpdate: (self) => {
-      const p = self.progress;
-      const moves = [
-        { x: -260, y: -40, rot: -25 }, // 1
-        { x: -200, y: 20, rot: -18 }, // 2
-        { x: -120, y: 80, rot: -10 }, // 3
-        { x: -40, y: 120, rot: -4 }, // 4
-        { x: 40, y: 120, rot: 4 }, // 5
-        { x: 120, y: 80, rot: 12 }, // 6
-        { x: 200, y: 20, rot: 22 }, // 7
-        { x: 260, y: -40, rot: 28 } // 8
-      ];
-      document.querySelectorAll(".card").forEach((card, i) => {
-        const m = moves[i];
-        if (!m) return;
-        const rest = parseFloat(card.dataset.restRot) || 0;
-        gsap.set(card, {
-          x: m.x * p,
-          // Tailwind translation y overrides GSAP y sometimes if we aren't careful, but GSAP uses transform matrix which incorporates both usually.
-          y: m.y * p,
-          rotation: rest + m.rot * p
-        });
-      });
-    }
-  });
+  // Removed Scroll-Triggered Fan Out to preserve original Tailwind alignments
 }
 
 // Initialize carousel once DOM is ready
@@ -414,8 +375,8 @@ function initVideoSequence() {
       context.drawImage(img, x, y, renderWidth, renderHeight);
 
       // Chroma key to remove black background
-      // This makes the black background transparent so the DOM background shows through,
-      // without making the bag itself transparent.
+      // (Commented out because it catches dark pixels INSIDE the bag and cookies, causing the "glitch" artifacts)
+      /*
       try {
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
@@ -435,6 +396,7 @@ function initVideoSequence() {
         // Handle potential CORS errors if running locally without a server
         console.warn("Canvas ImageData cannot be read due to CORS", e);
       }
+      */
     }
   }
 }
