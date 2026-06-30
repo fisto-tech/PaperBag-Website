@@ -72,3 +72,114 @@ body {
   cursor: pointer;
   transition: box-shadow 0.5s cubic-bezier(0.6, 0, 0.2, 1);
 }
+
+/* Preloader */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.golden-circle-wrapper {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.05) 50%, transparent 70%);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: preloaderPulse 1.5s infinite ease-in-out;
+}
+
+.preloader-img {
+    width: 130px;
+    height: auto;
+}
+
+@keyframes preloaderPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+.loading-text {
+    color: #D4AF37;
+    margin-top: 20px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.loading-text .dot {
+    animation: dotFade 1.4s infinite;
+    opacity: 0;
+}
+
+.loading-text .dot:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.loading-text .dot:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.loading-text .dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes dotFade {
+    0% { opacity: 0; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-3px); }
+    100% { opacity: 0; transform: translateY(0); }
+}
+
+.glitter-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-image: 
+        radial-gradient(1.5px 1.5px at 10px 20px, #FFD700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 60px, #D4AF37, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 80px 10px, #FFF, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 120px 80px, #FFD700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 160px 40px, #D4AF37, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 200px 120px, #FFF, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 240px 50px, #FFD700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 280px 90px, #D4AF37, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 20px 130px, #FFD700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 70px 110px, #D4AF37, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 100px 50px, #FFF, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 140px 140px, #FFD700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 180px 70px, #D4AF37, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 220px 20px, #FFF, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 260px 110px, #FFD700, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 290px 30px, #D4AF37, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 300px 150px;
+    opacity: 0.7;
+    animation: glitterAnim 2s linear infinite;
+    -webkit-mask-image: radial-gradient(circle at center, transparent 130px, black 150px);
+    mask-image: radial-gradient(circle at center, transparent 130px, black 150px);
+}
+
+@keyframes glitterAnim {
+    0% { background-position: 0px 0px; opacity: 0.4; }
+    50% { opacity: 0.9; }
+    100% { background-position: 300px 150px; opacity: 0.4; }
+}

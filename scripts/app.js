@@ -55,21 +55,23 @@ function init() {
     scene.add(object);
 
     // SCALE THE NEW MODEL
-    object.scale.set(1, 1, 1);
+    const initialScale = window.innerWidth < 768 ? 0.65 : 1;
+    object.scale.set(initialScale, initialScale, initialScale);
 
     animate();
 
     //POSITIONG
-    object.position.x = 40; // Moved more to the right
-    object.position.y = -2; // Moved down
+    object.position.x = window.innerWidth < 768 ? 0 : 40; // Center perfectly on mobile (or adjust if needed)
+    object.position.y = window.innerWidth < 768 ? -5 : -2; // Adjust vertical centering on mobile
 
     function removePreLoader() {
       const preloader = document.querySelector(".preloader");
       if (preloader) {
-        preloader.style.display = "none";
+        preloader.classList.add("hidden");
+        // Optional: wait for transition to end before display none, but visibility hidden handles it
       }
     }
-    object.onLoad = removePreLoader();
+    setTimeout(removePreLoader, 2000);
 
     // SCROLLING ANIMATION
 
@@ -78,6 +80,7 @@ function init() {
     // Section 1 to Section 2 (Center and Face Front)
     gsap.to(object.position, {
       x: 0,
+      y: 0, // Center it vertically as well!
       ease: "power1.inOut",
       scrollTrigger: {
         start: "top top",
@@ -86,15 +89,51 @@ function init() {
       },
     });
 
-    // Section 2 to Section 3 (No rotation for image)
+    // Section 3 (Scale down to fit circle as it enters)
+    gsap.to(object.scale, {
+      x: 0.55,
+      y: 0.55,
+      z: 0.55,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: ".ellipse-bg-container",
+        start: "top bottom",
+        end: "center center",
+        scrub: 1,
+      },
+    });
+
+    // Move up with Section 3 to stay fixed on the circle
+    gsap.to(object.position, {
+      y: () => {
+        const sec3 = document.querySelector('#section3');
+        const circle = document.querySelector('.ellipse-bg-container') || sec3;
+        const sec3Rect = sec3.getBoundingClientRect();
+        const circleRect = circle.getBoundingClientRect();
+        const circleCenter = (circleRect.top - sec3Rect.top) + (circleRect.height / 2);
+        const sec3Bottom = sec3Rect.height;
+        const dist = sec3Bottom - circleCenter + (window.innerHeight / 2);
+        return 0 + (dist * (94.6 / window.innerHeight)); 
+      },
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".ellipse-bg-container",
+        start: "center center",
+        endTrigger: "#section3",
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
 
     // Section 3 to Section 4 (Fade out image)
     gsap.to(object.material, {
       opacity: 0,
       ease: "power1.inOut",
       scrollTrigger: {
-        start: vh(200),
-        end: vh(300),
+        trigger: "#section3",
+        start: "bottom center",
+        end: "bottom top",
         scrub: 1,
       },
     });
@@ -145,8 +184,13 @@ function onWindowResize() {
   rightsidePosition = window.innerWidth * (4.5 / 100);
 
   if (object) {
-    object.position.x = 40;
-    object.position.y = -2;
+    // Only force initial position if at the very top of the page
+    if (window.scrollY < 10) {
+      object.position.x = window.innerWidth < 768 ? 0 : 40;
+      object.position.y = window.innerWidth < 768 ? -5 : -2;
+      const initialScale = window.innerWidth < 768 ? 0.65 : 1;
+      object.scale.set(initialScale, initialScale, initialScale);
+    }
   }
   //VH
   vh = (unit) => window.innerHeight * (unit / 100);
@@ -160,10 +204,13 @@ function initCarousel() {
   document.querySelectorAll(".card").forEach((card) => {
     const rot = parseFloat(card.dataset.rot) || 0;
     card.dataset.restRot = rot;
-    // We don't set y:-800 initially like the hero, because this is section 4.
-    // Instead we can just bring them in when scrolling to section 4, or just leave them there and start float.
-    // Let's do a simple entrance animation when .cards-section enters view.
-    gsap.set(card, { opacity: 0, scale: 0.5, rotation: rot + 15 });
+
+    // Store original computed Y so we preserve the tailwind translate-y staggers
+    const computedY = gsap.getProperty(card, "y");
+    card.dataset.restY = computedY;
+
+    // Set them to fall from the top
+    gsap.set(card, { opacity: 0, y: -800, rotation: rot + 15 });
   });
 
   ScrollTrigger.create({
@@ -172,11 +219,11 @@ function initCarousel() {
     onEnter: () => {
       gsap.to(".card", {
         opacity: 1,
-        scale: 1,
+        y: (i, target) => parseFloat(target.dataset.restY) || 0,
         rotation: (i, target) => parseFloat(target.dataset.restRot) || 0,
-        duration: 1,
+        duration: 1.5,
         stagger: 0.1,
-        ease: "back.out(1.5)",
+        ease: "back.out(1.2)",
         onComplete: startFloating
       });
     },
@@ -317,8 +364,8 @@ function initVideoSequence() {
   for (let i = 0; i < frameCount; i++) {
     const img = new Image();
     img.onload = () => {
-        loadedFrames++;
-        if (i === 0) render(); // initial draw
+      loadedFrames++;
+      if (i === 0) render(); // initial draw
     };
     img.src = currentFrame(i);
     images.push(img);
@@ -341,28 +388,28 @@ function initVideoSequence() {
   render();
 
   function render() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
     // Check if the current frame is actually loaded
-    if(images[seq.frame] && images[seq.frame].complete && images[seq.frame].naturalWidth > 0) {
+    if (images[seq.frame] && images[seq.frame].complete && images[seq.frame].naturalWidth > 0) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
       // Calculate scaling to cover the canvas (object-cover equivalent)
       const img = images[seq.frame];
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
-      
+
       let renderWidth = canvas.width;
       let renderHeight = canvas.height;
       let x = 0;
       let y = 0;
 
-      if(canvasRatio > imgRatio) {
-         renderHeight = canvas.width / imgRatio;
-         y = (canvas.height - renderHeight) / 2;
+      if (canvasRatio > imgRatio) {
+        renderHeight = canvas.width / imgRatio;
+        y = (canvas.height - renderHeight) / 2;
       } else {
-         renderWidth = canvas.height * imgRatio;
-         x = (canvas.width - renderWidth) / 2;
+        renderWidth = canvas.height * imgRatio;
+        x = (canvas.width - renderWidth) / 2;
       }
-      
+
       // Draw image to canvas
       context.drawImage(img, x, y, renderWidth, renderHeight);
 
@@ -377,48 +424,17 @@ function initVideoSequence() {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
+
           // If the pixel is close to black, make it transparent
           if (r < 25 && g < 25 && b < 25) {
             data[i + 3] = 0; // Set alpha to 0
           }
         }
         context.putImageData(imageData, 0, 0);
-      } catch(e) {
+      } catch (e) {
         // Handle potential CORS errors if running locally without a server
         console.warn("Canvas ImageData cannot be read due to CORS", e);
       }
-      
-    } else {
-      // FALLBACK ANIMATION (if images are missing)
-      // Draw a dark overlay
-      context.fillStyle = "rgba(0, 0, 0, 0.7)";
-      context.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw a loading / missing text
-      context.fillStyle = "white";
-      context.font = "bold 30px Arial";
-      context.textAlign = "center";
-      context.fillText("Video Frames are missing in 'images/Video-Frame'", canvas.width / 2, canvas.height / 2 - 20);
-      context.font = "20px Arial";
-      context.fillText("Please add 0001.png to 0100.png in the folder.", canvas.width / 2, canvas.height / 2 + 20);
-      
-      // Draw a simple moving indicator based on scroll progress
-      const progress = seq.frame / (frameCount - 1);
-      const barWidth = 400;
-      const barHeight = 10;
-      const startX = (canvas.width - barWidth) / 2;
-      const startY = canvas.height / 2 + 80;
-
-      context.fillStyle = "rgba(255, 255, 255, 0.2)";
-      context.fillRect(startX, startY, barWidth, barHeight);
-
-      context.fillStyle = "#FF8A5B";
-      context.fillRect(startX, startY, barWidth * progress, barHeight);
-      
-      context.beginPath();
-      context.arc(startX + (barWidth * progress), startY + 5, 15, 0, Math.PI * 2);
-      context.fill();
     }
   }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,22 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate-floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
             background-color: #F8F2EA;
@@ -25,26 +41,33 @@
         }
 
         .text-hero {
-            font-size: 8.5vw;
+            font-size: 14vw;
             line-height: 1;
             letter-spacing: -0.03em;
             text-transform: uppercase;
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
             .text-hero {
                 font-size: 8.5vw;
             }
         }
 
         .ellipse-icon {
-            width: 7.5vw;
-            height: 7.5vw;
+            width: 12vw;
+            height: 12vw;
             display: inline-block;
             vertical-align: middle;
             position: relative;
             z-index: 20;
             margin-left: 0.5vw;
+        }
+
+        @media (min-width: 768px) {
+            .ellipse-icon {
+                width: 7.5vw;
+                height: 7.5vw;
+            }
         }
 
 
@@ -81,7 +104,18 @@
 </head>
 
 <body class="overflow-x-hidden antialiased">
-    <div class="preloader"></div>
+    <div class="preloader flex-col gap-6">
+        <div class="glitter-bg"></div>
+        <div class="golden-circle-wrapper z-10 relative">
+            <img src="images/Bags/giftbag.png" alt="Loading..." class="preloader-img">
+        </div>
+        <div class="loading-text font-bold text-lg tracking-[0.2em] uppercase font-outfit flex items-center">
+            Loading
+            <span class="dot">.</span>
+            <span class="dot">.</span>
+            <span class="dot">.</span>
+        </div>
+    </div>
     <div class="scene"></div>
 
     <nav class="fixed top-0 left-0 w-full p-6 flex justify-between items-center z-50 pointer-events-none">
@@ -101,10 +135,10 @@
 
         <div
             class="hidden md:flex items-center bg-white/50 backdrop-blur-md border border-[#3F2B20] rounded-full px-8 py-2 gap-8 text-sm font-semibold uppercase pointer-events-auto">
-            <a href="#" class="hover:text-black transition">HOME</a>
-            <a href="#" class="hover:text-black transition">ABOUT</a>
-            <a href="#" class="hover:text-black transition">PRODUCTS</a>
-            <a href="#" class="hover:text-black transition">REVIEWS</a>
+            <a href="#home" class="hover:text-black transition">HOME</a>
+            <a href="#about" class="hover:text-black transition">ABOUT</a>
+            <a href="#products" class="hover:text-black transition">PRODUCTS</a>
+            <a href="#reviews" class="hover:text-black transition">REVIEWS</a>
         </div>
 
         <button
@@ -118,13 +152,13 @@
         </button>
     </nav>
 
-    <main class="relative h-screen w-full pt-32 px-6 md:px-12 flex flex-col justify-start z-10">
+    <main id="home" class="relative h-screen w-full pt-32 px-6 md:px-12 flex flex-col justify-start z-10">
         <div class="relative w-fit">
             <h1 class="text-hero font-black flex flex-col">
                 <span class="flex items-center">
                     DESIGNED T
                     <div class="relative flex items-center justify-center">
-                        <img src="images/Ellipse.png" alt="O" class="ellipse-icon">
+                        <img src="images/Ellipse.png" alt="O" class="ellipse-icon relative z-20">
                     </div>
                 </span>
                 <span
@@ -148,23 +182,23 @@
         </div>
     </main>
 
-    <section class="relative h-screen w-full bg-black flex items-center justify-between px-6 md:px-12 z-0">
+    <section id="about" class="relative min-h-screen md:h-screen w-full bg-black flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-12 z-0 py-20 md:py-0">
         <!-- Left content -->
         <div
-            class="flex flex-col justify-center h-full relative z-10 ml-4 md:ml-42 w-full md:w-1/2 max-w-lg mt-12 md:mt-0">
+            class="flex flex-col justify-center relative z-10 md:ml-42 w-full md:w-1/2 max-w-lg mt-12 md:mt-0 order-2 md:order-1">
             <!-- Text block -->
-            <div class="text-white text-xl font-light tracking-wide leading-relaxed mb-16 ml-4">
-                <div class="border-l border-white/60 pl-6 mb-8 w-fit">
+            <div class="text-white text-lg md:text-xl font-light tracking-wide leading-relaxed mb-16 md:ml-4 flex flex-col items-center md:items-start text-center md:text-left">
+                <div class="border-l-0 md:border-l border-b md:border-b-0 border-white/60 md:pl-6 pb-6 md:pb-0 mb-8 w-fit">
                     <p>From retail stores to<br>luxury boutiques,<br>our paper bags<br>combine durability,<br>minimal
                         design and<br>premium finishing.</p>
                 </div>
-                <div class="border-r border-white/60 pr-6 w-fit ml-6">
+                <div class="border-r-0 md:border-r border-white/60 md:pr-6 w-fit md:ml-6">
                     <p>Built for brands<br>that care about<br>presentation and<br>sustainability.</p>
                 </div>
             </div>
 
             <!-- Icons -->
-            <div class="flex gap-10 md:gap-14 text-center text-white pl-4">
+            <div class="flex gap-6 md:gap-14 text-center text-white md:pl-4 justify-center md:justify-start">
                 <div class="flex flex-col items-center">
                     <img src="images/icons/design-option.png" alt="Design Options"
                         class="h-10 w-auto object-contain mb-3 filter invert">
@@ -192,8 +226,8 @@
         </div>
 
         <!-- Right content -->
-        <div class="flex flex-col items-end justify-center h-full text-white relative z-10 w-1/2 pr-4 md:pr-12">
-            <h2 class="text-[7vw] font-black flex flex-col uppercase leading-[1.05] text-right tracking-tight">
+        <div class="flex flex-col items-center md:items-end justify-center text-white relative z-10 w-full md:w-1/2 md:pr-12 mb-10 md:mb-0 order-1 md:order-2">
+            <h2 class="text-[12vw] md:text-[7vw] font-black flex flex-col uppercase leading-[1.05] text-center md:text-right tracking-tight">
                 <span>MADE TO</span>
                 <span
                     style="-webkit-text-stroke: 1px white; color: transparent; font-weight: 500; font-family: 'Times New Roman', Times, serif;">CARRY</span>
@@ -203,13 +237,13 @@
         </div>
     </section>
 
-    <section
-        class="relative h-screen w-full bg-[#F8F2EA] flex items-center justify-between px-6 md:px-12 z-0 overflow-hidden">
+    <section id="section3"
+        class="relative w-full bg-[#F8F2EA] flex flex-col md:flex-row items-center justify-between px-6 md:px-12 z-0 overflow-hidden py-24 md:py-40 gap-12 md:gap-0">
 
 
         <!-- Left side -->
-        <div class="flex flex-col w-[35%] z-10 pl-4 md:pl-16">
-            <h2 class="text-[6.5vw] font-black uppercase leading-[0.85] mb-8 flex flex-col tracking-tight">
+        <div class="flex flex-col w-full md:w-[35%] z-10 md:pl-16 text-center md:text-left items-center md:items-start">
+            <h2 class="text-[10vw] md:text-[6.5vw] font-black uppercase leading-[0.85] mb-8 flex flex-col tracking-tight">
                 <span class="text-[#3F2B20]">CRAFTED</span>
                 <span
                     style="-webkit-text-stroke: 1px #3F2B20; color: transparent; font-weight: 500; font-family: 'Times New Roman', Times, serif;">FOR</span>
@@ -224,61 +258,61 @@
 
         <!-- Center background ellipse -->
         <div
-            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[35vw] h-[35vw] max-w-[700px] max-h-[700px]">
+            class="ellipse-bg-container relative md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-0 w-[80vw] md:w-[35vw] h-[80vw] md:h-[35vw] max-w-[700px] max-h-[700px] flex-shrink-0">
             <img src="images/icons/Ellipsebg.png" alt="Ellipse Background" class="w-full h-full object-contain">
         </div>
 
         <!-- Right side list -->
-        <div class="flex flex-col w-[35%] z-10 items-start justify-center gap-6 pr-4">
+        <div class="flex flex-wrap md:flex-col justify-center w-full md:w-[35%] z-10 items-start gap-y-8 gap-x-4 md:gap-6 md:pr-4 px-4 md:px-0">
             <!-- Food -->
-            <div class="flex items-center gap-8 transition-transform duration-300 w-full -translate-x-8">
-                <img src="images/icons/food.png" alt="Food" class="w-[4.5rem] h-[4.5rem] object-contain shrink-0">
+            <div class="flex flex-col md:flex-row text-center md:text-left items-center gap-3 md:gap-8 transition-transform duration-300 w-[45%] md:w-full md:-translate-x-8">
+                <img src="images/icons/food.png" alt="Food" class="w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] object-contain shrink-0">
                 <div>
-                    <h3 class="font-bold text-[1.5rem] text-[#3F2B20] mb-1">Food</h3>
-                    <p class="text-[#3F2B20] text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Food-grade paper
+                    <h3 class="font-bold text-[1.1rem] md:text-[1.5rem] text-[#3F2B20] mb-1">Food</h3>
+                    <p class="text-[#3F2B20] text-[0.65rem] md:text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Food-grade paper
                         bags designed for cafes, bakeries, takeaway, and restaurants.</p>
                 </div>
             </div>
             <!-- Luxury -->
-            <div class="flex items-center gap-8 transition-transform duration-300 w-full translate-x-2">
-                <img src="images/icons/luxury.png" alt="Luxury" class="w-[4.5rem] h-[4.5rem] object-contain shrink-0">
+            <div class="flex flex-col md:flex-row text-center md:text-left items-center gap-3 md:gap-8 transition-transform duration-300 w-[45%] md:w-full md:translate-x-2">
+                <img src="images/icons/luxury.png" alt="Luxury" class="w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] object-contain shrink-0">
                 <div>
-                    <h3 class="font-bold text-[1.5rem] text-[#3F2B20] mb-1">Luxury</h3>
-                    <p class="text-[#3F2B20] text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Elegant finishes
+                    <h3 class="font-bold text-[1.1rem] md:text-[1.5rem] text-[#3F2B20] mb-1">Luxury</h3>
+                    <p class="text-[#3F2B20] text-[0.65rem] md:text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Elegant finishes
                         with premium materials for luxury brands and boutiques.</p>
                 </div>
             </div>
             <!-- Gift -->
-            <div class="flex items-center gap-8 transition-transform duration-300 w-full translate-x-8">
-                <img src="images/icons/gift.png" alt="Gift" class="w-[4.5rem] h-[4.5rem] object-contain shrink-0">
+            <div class="flex flex-col md:flex-row text-center md:text-left items-center gap-3 md:gap-8 transition-transform duration-300 w-[45%] md:w-full md:translate-x-8">
+                <img src="images/icons/gift.png" alt="Gift" class="w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] object-contain shrink-0">
                 <div>
-                    <h3 class="font-bold text-[1.5rem] text-[#3F2B20] mb-1">Gift</h3>
-                    <p class="text-[#3F2B20] text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Beautiful gift bags
+                    <h3 class="font-bold text-[1.1rem] md:text-[1.5rem] text-[#3F2B20] mb-1">Gift</h3>
+                    <p class="text-[#3F2B20] text-[0.65rem] md:text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Beautiful gift bags
                         crafted to make every occasion feel more special.</p>
                 </div>
             </div>
             <!-- Fashion -->
-            <div class="flex items-center gap-8 transition-transform duration-300 w-full translate-x-2">
-                <img src="images/icons/fashion.png" alt="Fashion" class="w-[4.5rem] h-[4.5rem] object-contain shrink-0">
+            <div class="flex flex-col md:flex-row text-center md:text-left items-center gap-3 md:gap-8 transition-transform duration-300 w-[45%] md:w-full md:translate-x-2">
+                <img src="images/icons/fashion.png" alt="Fashion" class="w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] object-contain shrink-0">
                 <div>
-                    <h3 class="font-bold text-[1.5rem] text-[#3F2B20] mb-1">Fashion</h3>
-                    <p class="text-[#3F2B20] text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Stylish packaging
+                    <h3 class="font-bold text-[1.1rem] md:text-[1.5rem] text-[#3F2B20] mb-1">Fashion</h3>
+                    <p class="text-[#3F2B20] text-[0.65rem] md:text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Stylish packaging
                         that reflects modern fashion brands and premium collections.</p>
                 </div>
             </div>
             <!-- Events -->
-            <div class="flex items-center gap-8 transition-transform duration-300 w-full -translate-x-8"> <img
-                    src="images/icons/events.png" alt="Events" class="w-[4.5rem] h-[4.5rem] object-contain shrink-0">
+            <div class="flex flex-col md:flex-row text-center md:text-left items-center gap-3 md:gap-8 transition-transform duration-300 w-[45%] md:w-full md:-translate-x-8"> 
+                <img src="images/icons/events.png" alt="Events" class="w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] object-contain shrink-0">
                 <div>
-                    <h3 class="font-bold text-[1.5rem] text-[#3F2B20] mb-1">Events</h3>
-                    <p class="text-[#3F2B20] text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Custom paper bags
+                    <h3 class="font-bold text-[1.1rem] md:text-[1.5rem] text-[#3F2B20] mb-1">Events</h3>
+                    <p class="text-[#3F2B20] text-[0.65rem] md:text-[0.8rem] leading-[1.3] max-w-[240px] opacity-80">Custom paper bags
                         for exhibitions, corporate events, weddings, and promotions.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="relative w-full z-20 overflow-hidden flex flex-col font-outfit">
+    <section id="products" class="relative w-full z-20 overflow-hidden flex flex-col font-outfit">
         <!-- Top Dark Part -->
         <div class="w-full bg-[#181818] py-16 md:py-20 flex justify-center items-center relative">
             <div class="flex flex-col items-center justify-center gap-3 md:gap-5 relative z-10 w-full px-4">
@@ -296,20 +330,16 @@
         <div
             class="cards-section relative w-full bg-white pb-10 pb-36 pt-24 flex flex-col items-center overflow-visible">
 
-            <!-- Dashed curve using SVG -->
-            <img src="images/dashed line.svg" alt=""
-                class="absolute left-[-5%] top-[10%] w-[35%] h-[80%] object-cover opacity-60 z-0 pointer-events-none"
-                style="transform: rotate(15deg) scaleX(-1);">
 
             <!-- Background Text -->
             <div class="relative w-full flex flex-col items-center justify-center z-10">
                 <div
                     class="absolute w-full flex flex-col items-center justify-center top-[10%] md:top-[-10%] pointer-events-none select-none">
                     <div
-                        class="text-[5vw] md:text-[3.5vw] font-black italic text-[#E5E5E5] uppercase w-[75%] md:w-[65%] text-left leading-none tracking-tight">
+                        class="text-[8vw] md:text-[3.5vw] font-black italic text-[#E5E5E5] uppercase text-center leading-none tracking-tight w-full">
                         OUR</div>
                     <div
-                        class="text-[12vw] md:text-[9.5vw] font-black italic text-[#E5E5E5] uppercase leading-none tracking-tight mt-[-2%]">
+                        class="text-[15vw] md:text-[9.5vw] font-black italic text-[#E5E5E5] uppercase text-center leading-none tracking-tight mt-[-2%] w-full">
                         PREMIUM BAGS</div>
                 </div>
 
@@ -333,13 +363,7 @@
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center pointer-events-none">Gift
                         Bag</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[22%] md:w-[11.5%] translate-y-[10px] md:translate-y-[25px] mb-4 md:mb-0"
@@ -348,13 +372,7 @@
                         class="w-full h-auto object-contain pointer-events-none">
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center leading-tight pointer-events-none">Bakery<br>Box</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[22%] md:w-[11.5%] translate-y-[-5px] md:translate-y-[5px] mb-4 md:mb-0"
@@ -364,13 +382,7 @@
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center leading-tight pointer-events-none">Die
                         Cut<br>Handle Bag</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[22%] md:w-[11.5%] translate-y-[-15px] md:translate-y-[-15px] mb-4 md:mb-0"
@@ -379,13 +391,7 @@
                         class="w-full h-auto object-contain pointer-events-none">
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center leading-tight pointer-events-none">Retail<br>Bags</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[22%] md:w-[11.5%] translate-y-[-25px] md:translate-y-[-35px] mb-4 md:mb-0"
@@ -394,13 +400,7 @@
                         class="w-full h-auto object-contain pointer-events-none">
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center leading-tight pointer-events-none">Shopping<br>Bag</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[22%] md:w-[11.5%] translate-y-[5px] md:translate-y-[15px] mb-4 md:mb-0"
@@ -409,13 +409,7 @@
                         class="w-full h-auto object-contain pointer-events-none">
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center leading-tight pointer-events-none">Thankyou<br>Bags</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[22%] md:w-[11.5%] translate-y-[15px] md:translate-y-[5px] mb-4 md:mb-0"
@@ -424,13 +418,7 @@
                         class="w-full h-auto object-contain pointer-events-none">
                     <span
                         class="text-[#3F2B20] font-medium text-[0.6rem] md:text-sm mt-2 md:mt-3 text-center leading-tight pointer-events-none">Luxury<br>Bags</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
 
                 <div class="card relative bg-white rounded-xl shadow-lg shadow-gray-200/80 p-2 md:p-3 flex flex-col items-center w-[20%] md:w-[10%] translate-y-[0px] md:translate-y-[-10px] mb-4 md:mb-0"
@@ -440,26 +428,11 @@
                     <span
                         class="text-[#3F2B20] font-medium text-[0.55rem] md:text-xs mt-2 md:mt-3 text-center leading-tight pointer-events-none">Food
                         Take<br>Away Bag</span>
-                    <div
-                        class="card-btn absolute -bottom-3 -left-3 w-8 h-8 md:w-10 md:h-10 bg-[#3F2B20] rounded-full flex items-center justify-center text-white border-[3px] border-white shadow-lg pointer-events-none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
+
                 </div>
             </div>
 
-            <!-- Next Arrow Button -->
-            <div class="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-40">
-                <button
-                    class="w-10 h-10 md:w-12 md:h-12 bg-[#3F2B20] rounded-full flex items-center justify-center text-white shadow-lg hover:bg-[#2A1D15] transition transform hover:scale-105 border-4 border-white">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-            </div>
+            <!-- Next Arrow Button removed -->
         </div>
     </section>
 
@@ -473,7 +446,7 @@
     </section>
 
     <!-- Section 6 -->
-    <section
+    <section id="reviews"
         class="relative w-full z-20 pt-24 pb-8 px-6 md:px-12 flex flex-col items-center justify-center bg-[#F8F2EA] overflow-hidden">
 
         <!-- Leaves Image (Screen Edge) -->
@@ -482,27 +455,28 @@
 
         <!-- Top Card -->
         <div
-            class="relative w-full max-w-6xl bg-[#FDF8F3] rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-10 md:p-14 flex flex-col md:flex-row justify-between items-start md:items-center gap-10 z-10">
+            class="relative w-full max-w-6xl bg-[#FDF8F3] rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 md:p-14 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-10 z-10">
 
             <!-- Left Text -->
-            <div class="w-full md:w-1/4">
-                <h2 class="text-3xl font-black text-[#3F2B20] leading-tight mb-4 uppercase">Why Choose<br>Foldora?</h2>
-                <p class="text-xs text-[#3F2B20] opacity-80 mb-6 font-medium">Sustainable today,<br>responsible forever.
-                </p>
-                <a href="#"
-                    class="inline-flex items-center justify-center bg-[#3F2B20] text-white text-xs font-semibold px-6 py-3 rounded-full hover:bg-[#2A1D15] transition gap-2 shadow-lg shadow-black/20">
-                    Learn More
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
+            <div class="w-full md:w-1/4 flex flex-col">
+                <h2 class="text-3xl font-black text-[#3F2B20] leading-tight mb-2 md:mb-4 uppercase">Why Choose<br>Foldora?</h2>
+                <div class="flex flex-row md:flex-col justify-between items-end md:items-start w-full">
+                    <p class="text-xs text-[#3F2B20] opacity-80 mb-0 md:mb-6 font-medium">Sustainable today,<br>responsible forever.</p>
+                    <a href="#"
+                        class="inline-flex items-center justify-center bg-[#3F2B20] text-white text-[0.65rem] md:text-xs font-semibold px-5 py-2.5 md:px-6 md:py-3 rounded-full hover:bg-[#2A1D15] transition gap-2 shadow-lg shadow-black/20 shrink-0">
+                        Learn More
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
             </div>
 
             <!-- Features -->
             <div
-                class="w-full md:w-3/4 flex flex-wrap md:flex-nowrap justify-between items-start border-l-0 md:border-l border-dashed border-[#D5C5B5] pl-0 md:pl-8 gap-y-8 relative z-20">
+                class="w-full md:w-3/4 flex flex-wrap md:flex-nowrap justify-between items-start border-l-0 md:border-l border-dashed border-[#D5C5B5] pl-0 md:pl-8 gap-y-6 md:gap-y-8 relative z-20 mt-2 md:mt-0">
 
                 <!-- Feature 1 -->
                 <div class="flex flex-col items-center text-center px-2 w-1/2 md:w-1/4 relative">
@@ -583,7 +557,7 @@
         <!-- Middle Text -->
         <div class="my-16 w-full flex justify-center z-10 relative">
             <img src="images/section6 text.png" alt="Carry Better. Leave Less"
-                class="h-10 md:h-12 object-contain mix-blend-multiply">
+                class="h-10 md:h-30 object-contain mix-blend-multiply">
         </div>
 
         <!-- Bottom Testimonials -->
@@ -602,7 +576,7 @@
             </div>
 
             <!-- Right Grid -->
-            <div class="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="w-full md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-4">
                 <!-- SVG Star Definition to reuse -->
                 <svg width="0" height="0" class="hidden">
                     <symbol id="star" viewBox="0 0 24 24">
@@ -614,7 +588,7 @@
 
                 <!-- Card 1 -->
                 <div
-                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between aspect-square md:aspect-auto">
+                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between h-auto">
                     <div>
                         <div class="flex gap-1 mb-4">
                             <svg class="w-3.5 h-3.5">
@@ -644,7 +618,7 @@
                 </div>
                 <!-- Card 2 -->
                 <div
-                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between aspect-square md:aspect-auto">
+                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between h-auto">
                     <div>
                         <div class="flex gap-1 mb-4">
                             <svg class="w-3.5 h-3.5">
@@ -674,7 +648,7 @@
                 </div>
                 <!-- Card 3 -->
                 <div
-                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between aspect-square md:aspect-auto">
+                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between h-auto">
                     <div>
                         <div class="flex gap-1 mb-4">
                             <svg class="w-3.5 h-3.5">
@@ -704,7 +678,7 @@
                 </div>
                 <!-- Card 4 -->
                 <div
-                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between aspect-square md:aspect-auto">
+                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between h-auto">
                     <div>
                         <div class="flex gap-1 mb-4">
                             <svg class="w-3.5 h-3.5">
@@ -734,7 +708,7 @@
                 </div>
                 <!-- Card 5 -->
                 <div
-                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between aspect-square md:aspect-auto">
+                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between h-auto">
                     <div>
                         <div class="flex gap-1 mb-4">
                             <svg class="w-3.5 h-3.5">
@@ -764,7 +738,7 @@
                 </div>
                 <!-- Card 6 -->
                 <div
-                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between aspect-square md:aspect-auto">
+                    class="bg-[#FCF9F6] rounded-xl p-5 md:p-6 shadow-[0_4px_15px_rgb(0,0,0,0.03)] flex flex-col justify-between h-auto">
                     <div>
                         <div class="flex gap-1 mb-4">
                             <svg class="w-3.5 h-3.5">
@@ -822,9 +796,9 @@
                     Have a question, need a quote, or want to work together?<br>Drop us a message. We're here to help.
                 </p>
 
-                <div class="flex flex-col gap-8">
+                <div class="grid grid-cols-2 gap-4 md:gap-8">
                     <!-- Phone -->
-                    <div class="flex items-start gap-6 border-b border-[#3F2B20]/10 pb-6">
+                    <div class="flex items-start gap-3 md:gap-6">
                         <div
                             class="w-12 h-12 rounded-full bg-[#EFE6DB] shadow-inner flex items-center justify-center shrink-0">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F2B20"
@@ -840,7 +814,7 @@
                         </div>
                     </div>
                     <!-- Email -->
-                    <div class="flex items-start gap-6 border-b border-[#3F2B20]/10 pb-6">
+                    <div class="flex items-start gap-3 md:gap-6">
                         <div
                             class="w-12 h-12 rounded-full bg-[#EFE6DB] shadow-inner flex items-center justify-center shrink-0">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F2B20"
@@ -856,7 +830,7 @@
                         </div>
                     </div>
                     <!-- Address -->
-                    <div class="flex items-start gap-6 border-b border-[#3F2B20]/10 pb-6">
+                    <div class="flex items-start gap-3 md:gap-6">
                         <div
                             class="w-12 h-12 rounded-full bg-[#EFE6DB] shadow-inner flex items-center justify-center shrink-0">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F2B20"
@@ -872,7 +846,7 @@
                         </div>
                     </div>
                     <!-- Working Hours -->
-                    <div class="flex items-start gap-6">
+                    <div class="flex items-start gap-3 md:gap-6">
                         <div
                             class="w-12 h-12 rounded-full bg-[#EFE6DB] shadow-inner flex items-center justify-center shrink-0">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F2B20"
@@ -944,40 +918,58 @@
     <section
         class="relative min-h-screen w-full z-10 flex flex-col justify-end bg-[#0c0c0c] text-white pt-32 overflow-hidden">
         <!-- Huge Text and Model Container -->
+        <!-- Huge Text and Model Container -->
         <div
-            class="relative w-full flex items-center justify-between px-6 md:px-12 mb-16 h-[50vh] z-20 pointer-events-none">
+            class="relative w-full flex items-start justify-between px-6 md:px-12 h-[50vh] md:h-[65vh] z-20 pointer-events-none pt-4 mb-0">
             <!-- Left Text -->
             <h1 id="carry-text"
-                class="text-[14vw] font-black uppercase leading-[0.8] tracking-tighter text-[#EBE6DD] w-1/2">
+                class="text-[16vw] md:text-[13vw] font-black uppercase leading-[0.8] tracking-tighter text-[#EBE6DD] w-1/2 text-left z-10 relative">
                 CARRY<br>BETTER.
             </h1>
 
+            <!-- Center Image -->
+            <div
+                class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 pointer-events-auto mb-[5vw] h-[40vh] md:h-[65vh] flex items-center justify-center">
+                <img src="images/bag img.png" alt="Foldora Bag"
+                    class="h-full w-auto object-contain animate-floating scale-y-95 scale-x-[1.02]">
+            </div>
+
             <!-- Right Text -->
             <h1 id="leave-text"
-                class="text-[14vw] font-black uppercase leading-[0.8] tracking-tighter text-[#EBE6DD] text-right w-1/2">
-                LEAVE<br>LESS.
+                class="text-[16vw] md:text-[13vw] font-black uppercase leading-[0.8] tracking-tighter text-[#EBE6DD] w-1/2 text-left z-20 relative mt-[15vw] md:mt-[10vw] -mr-[8vw]">
+                LEAVE<br>
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-b from-[#EBE6DD] from-40% to-[#0c0c0c] to-90%">LESS.</span>
             </h1>
         </div>
 
-        <div class="absolute right-10 top-1/2 md:top-[60%] z-30">
-            <button
-                class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition group">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E0A87A" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round"
-                    class="group-hover:-translate-y-1 transition-transform">
+
+
+        <!-- Divider Line with Centered Arrow Button -->
+        <div class="w-full relative z-30 mb-12 mt-4 flex items-center justify-end pr-20">
+            <!-- The actual line -->
+            <div class="w-full h-[2px] bg-white/20 absolute top-1/2 -translate-y-1/2"></div>
+            
+            <!-- The button overlapping the line -->
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="relative w-16 h-16 md:w-20 md:h-20 bg-[#111] border border-white/50 rounded-full flex items-center justify-center hover:bg-[#222] transition group shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] z-40 cursor-pointer">
+                <!-- Inner dotted/dashed ring for extra detail as seen in the image -->
+                <div class="absolute inset-[3px] rounded-full border border-dashed border-white/30 pointer-events-none"></div>
+                <svg class="w-6 h-6 md:w-8 md:h-8 group-hover:-translate-y-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="#E0A87A" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <line x1="12" y1="19" x2="12" y2="5"></line>
                     <polyline points="5 12 12 5 19 12"></polyline>
                 </svg>
             </button>
         </div>
 
-        <!-- Divider Line -->
-        <div class="w-full h-[1px] bg-white/10 mb-12"></div>
-
         <!-- Footer Links -->
-        <div class="w-full px-6 md:px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-8 mb-12 z-20">
+        <div class="w-full relative px-6 md:px-12 flex flex-col md:flex-row justify-between gap-8 md:gap-12 mb-12 z-20 mt-4 md:mt-0">
+            
+            <!-- Up Arrow Button moved to Connect section -->
+
             <!-- Brand -->
-            <div class="col-span-1 sm:col-span-2 flex flex-col pr-8">
+            <div class="flex flex-col md:w-1/4 pr-14 md:pr-4">
                 <div class="flex items-center gap-2 mb-4">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -996,97 +988,101 @@
                 </div>
                 <p class="text-[0.7rem] opacity-60 leading-relaxed max-w-[200px] mb-8">Premium sustainable paper bags
                     designed for your brand and our planet.</p>
-                <div class="flex flex-col justify-start">
-                    <div class="flex flex-col gap-3 mb-4">
-                        <h5 class="text-[0.65rem] font-bold uppercase mb-1">Follow Us</h5>
-                        <div class="flex gap-2">
-                            <a href="#"
-                                class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                </svg>
-                            </a>
-                            <a href="#"
-                                class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                                    </path>
-                                    <rect x="2" y="9" width="4" height="12"></rect>
-                                    <circle cx="4" cy="4" r="2"></circle>
-                                </svg>
-                            </a>
-                            <a href="#"
-                                class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                    </path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-3">
-                        <h5 class="text-[0.65rem] font-bold uppercase mb-1">Let's Talk</h5>
-                        <a href="tel:+18001234567"
-                            class="border border-[#E0A87A] text-[#E0A87A] rounded-lg px-4 py-2.5 flex items-center gap-2 hover:bg-[#E0A87A]/10 transition text-xs w-max font-medium">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                </path>
-                            </svg>
-                            +1 (800) 123-4567
-                        </a>
-                    </div>
+            </div>
+
+            <!-- Links Group -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:w-1/2">
+                <!-- Shop -->
+                <div class="flex flex-col gap-3 items-center md:items-start text-center md:text-left">
+                    <h5 class="text-[0.65rem] font-bold uppercase mb-2">Shop</h5>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Shopping Bags</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Gift Bags</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Food Bags</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Luxury Bags</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Custom Printing</a>
+                </div>
+
+                <!-- Collections -->
+                <div class="flex flex-col gap-3 items-center md:items-start text-center md:text-left">
+                    <h5 class="text-[0.65rem] font-bold uppercase mb-2">Collections</h5>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Food</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Luxury</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Gift</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Events</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Fashion</a>
+                </div>
+
+                <!-- Company -->
+                <div class="flex flex-col gap-3 items-center md:items-start text-center md:text-left">
+                    <h5 class="text-[0.65rem] font-bold uppercase mb-2">Company</h5>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">About Us</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Sustainability</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Our Process</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Bulk Orders</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Careers</a>
+                </div>
+
+                <!-- Help -->
+                <div class="flex flex-col gap-3 items-center md:items-start text-center md:text-left">
+                    <h5 class="text-[0.65rem] font-bold uppercase mb-2">Help</h5>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Contact Us</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">FAQs</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Shipping & Delivery</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Returns & Refunds</a>
+                    <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Terms & Conditions</a>
                 </div>
             </div>
 
-            <!-- Shop -->
-            <div class="col-span-1 flex flex-col gap-3">
-                <h5 class="text-[0.65rem] font-bold uppercase mb-2">Shop</h5>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Shopping Bags</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Gift Bags</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Food Bags</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Luxury Bags</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Custom Printing</a>
-            </div>
-
-            <!-- Collections -->
-            <div class="col-span-1 flex flex-col gap-3">
-                <h5 class="text-[0.65rem] font-bold uppercase mb-2">Collections</h5>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Retail</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Food</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Luxury</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Gift</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Events</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Fashion</a>
-            </div>
-
-            <!-- Company -->
-            <div class="col-span-1 flex flex-col gap-3">
-                <h5 class="text-[0.65rem] font-bold uppercase mb-2">Company</h5>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">About Us</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Sustainability</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Our Process</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Bulk Orders</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Careers</a>
-            </div>
-
-            <!-- Help -->
-            <div class="col-span-1 flex flex-col gap-3">
-                <h5 class="text-[0.65rem] font-bold uppercase mb-2">Help</h5>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Contact Us</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">FAQs</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Shipping & Delivery</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Returns & Refunds</a>
-                <a href="#" class="text-[0.75rem] opacity-60 hover:opacity-100 transition">Terms & Conditions</a>
+            <!-- Connect -->
+            <div class="flex flex-col gap-6 md:w-1/4 md:items-end mt-4 md:mt-0">
+                <div class="flex flex-col gap-3 items-center md:items-end w-full">
+                    <h5 class="text-[0.65rem] font-bold uppercase mb-1">Follow Us</h5>
+                    
+                    <div class="flex gap-2 justify-center md:justify-end w-full">
+                        <a href="#"
+                            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 items-center md:items-end">
+                    <h5 class="text-[0.65rem] font-bold uppercase mb-1">Let's Talk</h5>
+                    <a href="tel:+18001234567"
+                        class="border border-[#E0A87A] text-[#E0A87A] rounded-lg px-4 py-2.5 flex items-center gap-2 hover:bg-[#E0A87A]/10 transition text-xs w-max font-medium">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                            </path>
+                        </svg>
+                        +1 (800) 123-4567
+                    </a>
+                </div>
             </div>
         </div>
 
